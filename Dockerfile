@@ -17,4 +17,6 @@ CMD tar \
     --add-file=lib64/ld-linux-x86-64.so.2 \
     --add-file=usr/lib/libc.so.6 \
     --add-file=usr/lib/libpthread.so.0 \
+    --add-file=usr/lib/libnss_dns.so.2 \
+    --add-file=usr/lib/libresolv.so.2 \
     --add-file=usr/share/zoneinfo | docker import - daaku/goruntime
