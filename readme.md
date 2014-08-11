@@ -15,3 +15,6 @@ docker run \
   -v /usr/bin/docker:/usr/bin/docker \
   -t daaku/make-goruntime
 ```
+
+This will result in a new image `daaku/goruntime` which can be used as the base
+image for your go application.
