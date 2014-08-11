@@ -10,6 +10,7 @@ CMD tar \
     --directory=/ \
     --numeric-owner \
     --preserve-permissions \
+    --add-file=etc/localtime \
     --add-file=etc/protocols \
     --add-file=etc/services \
     --add-file=etc/ssl/certs/ca-certificates.crt \
