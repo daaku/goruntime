@@ -1,7 +1,7 @@
 goruntime
 =========
 
-Go application are mostly statically compiled. They depend on libc & pthreads,
+Go applications are mostly statically compiled. They depend on libc & pthreads,
 use the system certificate authority and the time zone database. This
 `Dockerfile` builds a tiny base docker image that allows such applications to
 run without having to pull a large image with an entire OS.
