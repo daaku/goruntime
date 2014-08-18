@@ -1,22 +1,35 @@
-FROM base/archlinux
+FROM daaku/arch
 MAINTAINER Naitik Shah "n@daaku.org"
 
-RUN pacman --sync --refresh --sysupgrade --noconfirm
-RUN pacman --sync --noconfirm ca-certificates docker
+RUN pacman --sync --noconfirm \
+  busybox \
+  ca-certificates \
+  docker \
+  rsync \
+  tar
+
+RUN mkdir /goruntime
+RUN rsync \
+    --copy-links \
+    --group \
+    --owner \
+    --perms \
+    --recursive \
+    --relative \
+    /etc/protocols \
+    /etc/services \
+    /etc/ssl/certs/ca-certificates.crt \
+    /lib64/ld-linux-x86-64.so.2 \
+    /usr/lib/libc.so.6 \
+    /usr/lib/libpthread.so.0 \
+    /usr/lib/libnss_dns.so.2 \
+    /usr/lib/libresolv.so.2 \
+    /usr/bin/busybox \
+    /usr/share/zoneinfo \
+    /goruntime
 
 CMD tar \
     --create \
     --dereference \
-    --directory=/ \
-    --numeric-owner \
-    --preserve-permissions \
-    --add-file=etc/localtime \
-    --add-file=etc/protocols \
-    --add-file=etc/services \
-    --add-file=etc/ssl/certs/ca-certificates.crt \
-    --add-file=lib64/ld-linux-x86-64.so.2 \
-    --add-file=usr/lib/libc.so.6 \
-    --add-file=usr/lib/libpthread.so.0 \
-    --add-file=usr/lib/libnss_dns.so.2 \
-    --add-file=usr/lib/libresolv.so.2 \
-    --add-file=usr/share/zoneinfo | docker import - daaku/goruntime
+    --directory=/goruntime \
+    --numeric-owner . | docker import - daaku/goruntime
