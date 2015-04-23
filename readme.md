@@ -12,7 +12,6 @@ To build:
 docker build -t daaku/make-goruntime . &&
 docker run \
   -v /var/run/docker.sock:/var/run/docker.sock \
-  -v /usr/bin/docker:/usr/bin/docker \
   -t daaku/make-goruntime
 ```
 
