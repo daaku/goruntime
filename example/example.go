@@ -14,7 +14,7 @@ func main() {
 	defer r.Body.Close()
 
 	var res struct {
-		Everything string `json:"everything"`
+		Everything int `json:"everything"`
 	}
 	if err := json.NewDecoder(r.Body).Decode(&res); err != nil {
 		panic(err)
