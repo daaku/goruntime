@@ -17,9 +17,8 @@ Includes:
 
 To build:
 
-```
-docker build -t goruntime-builder . &&
-docker run goruntime-builder | docker import - daaku/goruntime
+```sh
+make
 ```
 
 This will result in a new image `daaku/goruntime` which can be used as the base
