@@ -1,12 +1,11 @@
-FROM daaku/arch
+FROM ubuntu
 MAINTAINER Naitik Shah "n@daaku.org"
 
-RUN pacman --sync --noconfirm \
-  busybox \
-  ca-certificates \
-  docker \
-  rsync \
-  tar
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update
+RUN apt-get -y --no-install-recommends install \
+      ca-certificates \
+      rsync
 
 RUN mkdir /goruntime
 RUN rsync \
@@ -20,11 +19,10 @@ RUN rsync \
     /etc/services \
     /etc/ssl/certs/ca-certificates.crt \
     /lib64/ld-linux-x86-64.so.2 \
-    /usr/lib/libc.so.6 \
-    /usr/lib/libpthread.so.0 \
-    /usr/lib/libnss_dns.so.2 \
-    /usr/lib/libresolv.so.2 \
-    /usr/bin/busybox \
+    /lib/x86_64-linux-gnu/libc.so.6 \
+    /lib/x86_64-linux-gnu/libpthread.so.0 \
+    /lib/x86_64-linux-gnu/libnss_dns.so.2 \
+    /lib/x86_64-linux-gnu/libresolv.so.2 \
     /usr/share/zoneinfo \
     /goruntime
 
@@ -32,4 +30,6 @@ CMD tar \
     --create \
     --dereference \
     --directory=/goruntime \
-    --numeric-owner . | docker import - daaku/goruntime
+    --numeric-owner \
+    -f - \
+    .
