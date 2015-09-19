@@ -10,5 +10,5 @@ To run it:
 
 ```sh
 docker build -t daaku/goruntime-example . &&
-docker run -ti daaku/goruntime-example
+docker run -it --rm daaku/goruntime-example
 ```

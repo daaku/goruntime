@@ -7,16 +7,14 @@ import (
 )
 
 func main() {
-	r, err := http.Get("https://graph.facebook.com/DoctorWho")
+	r, err := http.Get("https://raw.githubusercontent.com/daaku/goruntime/master/example/answer.json")
 	if err != nil {
 		panic(err)
 	}
 	defer r.Body.Close()
 
 	var res struct {
-		ID   uint64 `json:"id,string"`
-		Name string `json:"name"`
-		Link string `json:"link"`
+		Everything string `json:"everything"`
 	}
 	if err := json.NewDecoder(r.Body).Decode(&res); err != nil {
 		panic(err)
